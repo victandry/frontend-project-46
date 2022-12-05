@@ -4,10 +4,8 @@ import { program } from 'commander';
 
 program
   .name('gendiff')
+  .version('0.0.1', '-V, --version')
   .description('Compares two configuration files and shows a difference.')
-  .option('-V, --version', 'output the version number')
-  .option('-h, --help', 'display help for command');
-
-program.parse(process.argv);
-
-if (!program.args.length) program.help();
+  .option('-f, --format <type>', 'output format')
+  .arguments('<filepath1> <filepath2>')
+  .parse(process.argv);
