@@ -1,0 +1,16 @@
+name: Run linter and tests
+
+on: 
+  - push
+  - pull_request
+
+env:
+  CI: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make lint
+      - run: make test
