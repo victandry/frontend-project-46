@@ -1,16 +1,18 @@
 // import { test, expect } from '@jest/globals';
 import { beforeAll } from '@jest/globals';
-import * as fs from 'fs';
 import generateDifference from '../src/index.js';
 
-let filepath1, filepath2, filepath3, filepath4;
+let filepath1;
+let filepath2;
+let filepath3;
+let filepath4;
 
 beforeAll(() => {
-  filepath1 = '${__dirname}/../__fixtures__/file1.json';
-  filepath2 = '${__dirname}/../__fixtures__/file2.json';
-  filepath3 = '${__dirname}/../__fixtures__/file3.json';
-  filepath4 = '${__dirname}/../__fixtures__/file4.json';
-})
+  filepath1 = `${__dirname}/../__fixtures__/file1.json`;
+  filepath2 = `${__dirname}/../__fixtures__/file2.json`;
+  filepath3 = `${__dirname}/../__fixtures__/file3.json`;
+  filepath4 = `${__dirname}/../__fixtures__/file4.json`;
+});
 
 test('generateDifference1', () => {
   const expectedDifference1 = [
