@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import * as fs from 'fs';
 import * as path from 'path';
+import parse from './parsers.js';
 
 const generateDifference = (filepath1, filepath2) => {
   const absoluteFilepath1 = path.resolve(process.cwd(), filepath1);
   const absoluteFilepath2 = path.resolve(process.cwd(), filepath2);
-  const file1 = JSON.parse(fs.readFileSync(absoluteFilepath1));
-  const file2 = JSON.parse(fs.readFileSync(absoluteFilepath2));
+  const file1 = parse(fs.readFileSync(absoluteFilepath1), path.extname(absoluteFilepath1));
+  const file2 = parse(fs.readFileSync(absoluteFilepath2), path.extname(absoluteFilepath2));
 
   const file1Keys = Object.keys(file1);
   const file2Keys = Object.keys(file2);
