@@ -9,7 +9,11 @@ extends:
   - 'airbnb-base'
   - 'plugin:jest/recommended'
 
+parserOptions:
+  ecmaVersion: 2020
+
 rules: {
+  "no-underscore-dangle": [2, { "allow": ["__filename", "__dirname"] }],
 	"no-console": "off",
 	"import/extensions": "off"
 }
