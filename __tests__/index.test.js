@@ -1,18 +1,12 @@
 // import { test, expect } from '@jest/globals';
-import { beforeAll } from '@jest/globals';
+import { fileURLToPath } from 'url';
+import { dirname, path } from 'path';
 import generateDifference from '../src/index.js';
 
-let filepath1;
-let filepath2;
-let filepath3;
-let filepath4;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-beforeAll(() => {
-  filepath1 = `${__dirname}/../__fixtures__/file1.json`;
-  filepath2 = `${__dirname}/../__fixtures__/file2.json`;
-  filepath3 = `${__dirname}/../__fixtures__/file3.json`;
-  filepath4 = `${__dirname}/../__fixtures__/file4.json`;
-});
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 test('generateDifference1', () => {
   const expectedDifference1 = [
@@ -25,7 +19,7 @@ test('generateDifference1', () => {
     '  + verbose: true',
     '}',
   ];
-  expect(generateDifference(filepath1, filepath2)).toEqual(expectedDifference1.join('\n'));
+  expect(generateDifference(getFixturePath('file1.json'), getFixturePath('file2.json'))).toEqual(expectedDifference1.join('\n'));
 });
 
 test('generateDifference2', () => {
@@ -43,5 +37,5 @@ test('generateDifference2', () => {
     '  + university: SPbPU',
     '}',
   ];
-  expect(generateDifference(filepath3, filepath4)).toEqual(expectedDifference2.join('\n'));
+  expect(generateDifference(getFixturePath('file3.json'), getFixturePath('file4.json'))).toEqual(expectedDifference2.join('\n'));
 });
