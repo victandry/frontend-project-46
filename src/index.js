@@ -3,11 +3,15 @@ import * as fs from 'fs';
 import * as path from 'path';
 import parse from './parsers.js';
 
+const buildAbsolutePath = (filepath) => path.resolve(process.cwd(), path.extname(filepath) !== '' ? filepath : `${filepath}.json`);
+
+const parseFile = (filepath) => parse(fs.readFileSync(filepath), path.extname(filepath));
+
 const generateDifference = (filepath1, filepath2) => {
-  const absoluteFilepath1 = path.resolve(process.cwd(), filepath1);
-  const absoluteFilepath2 = path.resolve(process.cwd(), filepath2);
-  const file1 = parse(fs.readFileSync(absoluteFilepath1), path.extname(absoluteFilepath1));
-  const file2 = parse(fs.readFileSync(absoluteFilepath2), path.extname(absoluteFilepath2));
+  const absoluteFilepath1 = buildAbsolutePath(filepath1);
+  const absoluteFilepath2 = buildAbsolutePath(filepath2);
+  const file1 = parseFile(absoluteFilepath1);
+  const file2 = parseFile(absoluteFilepath2);
 
   const file1Keys = Object.keys(file1);
   const file2Keys = Object.keys(file2);
