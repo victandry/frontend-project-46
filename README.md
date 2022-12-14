@@ -8,3 +8,8 @@ Gendiff - шаг 3
 ```
 [![asciicast](https://asciinema.org/a/d32fQOo5PSmpIf2GCMnErJSK4.svg)](https://asciinema.org/a/d32fQOo5PSmpIf2GCMnErJSK4)
 ```
+```
+Gendiff - шаг 5
+```
+[![asciicast](https://asciinema.org/a/hZi2gX2k8vtK3ULU6SfrSZOjH.svg)](https://asciinema.org/a/hZi2gX2k8vtK3ULU6SfrSZOjH)
+```
