@@ -102,38 +102,3 @@ const generateDifference = (filepath1, filepath2) => {
 };
 
 export default generateDifference;
-
-/* const mappedKeys = sortedKeys.flatMap((key) => {
-      if (_.has(file1, key)) { // если ключ есть в первом файле...
-
-        const value1 = file1[key];
-
-        if (_.has(file2, key)) { // ... и ключ есть во втором файле
-          const value2 = file2[key];
-          if (value1 === value2) { // если значения ключей равны
-            return `${currentIndent}${basicIndent}${key}: ${value1}`;
-          }
-          if (!(isObject(value1) && isObject(value2))) { // если только одно из значений - объект
-            const stringifiedValue1 = stringify(value1, basicIndent, 1)
-              .split('\n')
-              .map((line) => (line !== '{' ? `${currentIndent}${line}` : line))
-              .join('\n');
-            const stringifiedValue2 = stringify(value2, basicIndent, 1)
-              .split('\n')
-              .map((line) => (line !== '{' ? `${currentIndent}${line}` : line))
-              .join('\n');
-            return [`${currentIndent}${file1Indent}${key}: ${stringifiedValue1}`, `${currentIndent}${file2Indent}${key}: ${stringifiedValue2}`];
-          }
-
-          return `${currentIndent}${basicIndent}${key}: ${iter(value1, value2, depth + 1)}`;
-
-        }
-        return `${currentIndent}${file1Indent}${key}: ${stringify(value1, basicIndent, 1)}`;
-      }
-
-      const value2 = file2[key];
-      return `${currentIndent}${file2Indent}${key}: ${stringify(value2, basicIndent, 1)}`;
-    });
-
-    return ['{', ...mappedKeys, `${currentIndent}}`].join('\n');
-  }; */
