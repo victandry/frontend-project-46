@@ -2,12 +2,13 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import * as path from 'path';
-import makeStylish from '../src/stylish.js';
+import makeStylish from '../formatters/stylish.js';
+import makePlain from '../formatters/plain.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const expectedDifference = [
+const expectedStylishDifference = [
   '{',
   '    common: {',
   '      + follow: false',
@@ -54,10 +55,30 @@ const expectedDifference = [
   '}',
 ];
 
+const expectedPlainDifference = [
+  "Property 'common.follow' was added with value: false",
+  "Property 'common.setting2' was removed",
+  "Property 'common.setting3' was updated. From true to null",
+  "Property 'common.setting4' was added with value: 'blah blah'",
+  "Property 'common.setting5' was added with value: [complex value]",
+  "Property 'common.setting6.doge.wow' was updated. From '' to 'so much'",
+  "Property 'common.setting6.ops' was added with value: 'vops'",
+  "Property 'group1.baz' was updated. From 'bas' to 'bars'",
+  "Property 'group1.nest' was updated. From [complex value] to 'str'",
+  "Property 'group2' was removed",
+  "Property 'group3' was added with value: [complex value]",
+];
+
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-test('generateDifference1', () => {
+test('generateStylishDifference', () => {
   const actualDifference = makeStylish(getFixturePath('file3.json'), getFixturePath('file4.json'));
   // console.log(getFixturePath('file3.json'));
-  expect(actualDifference).toEqual(expectedDifference.join('\n'));
+  expect(actualDifference).toEqual(expectedStylishDifference.join('\n'));
+});
+
+test('generatePlainDifference', () => {
+  const actualDifference = makePlain(getFixturePath('file3.json'), getFixturePath('file4.json'));
+  // console.log(getFixturePath('file3.json'));
+  expect(actualDifference).toEqual(expectedPlainDifference.join('\n'));
 });
