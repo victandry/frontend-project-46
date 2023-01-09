@@ -18,4 +18,4 @@ Gendiff может сравнивать файлы формата .json и .yml.
 [![asciicast](https://asciinema.org/a/hZi2gX2k8vtK3ULU6SfrSZOjH.svg)](https://asciinema.org/a/hZi2gX2k8vtK3ULU6SfrSZOjH)
 
 Gendiff можно использовать с вложенными объектами.
-[![asciicast](https://asciinema.org/a/wHilfACs8fkJZL2xgbQpL5WaQ.svg)](https://asciinema.org/a/wHilfACs8fkJZL2xgbQpL5WaQ)
+[![asciicast](https://asciinema.org/a/1nGvSbXvwL5IBySDRm9mFn7P3.svg)](https://asciinema.org/a/1nGvSbXvwL5IBySDRm9mFn7P3)
