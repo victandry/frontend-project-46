@@ -1,6 +1,13 @@
 import _ from 'lodash';
+import * as fs from 'fs';
+import * as path from 'path';
+import parse from './parsers.js';
 // import { listeners } from 'process';
 // import { equal } from 'assert';
+
+const buildAbsolutePath = (filepath) => path.resolve(process.cwd(), path.extname(filepath) !== '' ? filepath : `${filepath}.json`);
+
+const parseFile = (filepath) => parse(fs.readFileSync(filepath), path.extname(filepath));
 
 const isObject = (value) => (value === Object(value) && !Array.isArray(value));
 
@@ -35,4 +42,4 @@ const generateDifference = (file1, file2) => {
   return keyStates;
 };
 
-export default generateDifference;
+export { generateDifference, buildAbsolutePath, parseFile };
