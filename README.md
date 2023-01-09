@@ -11,11 +11,21 @@
 gendiff -h
 ```
 Использование gendiff с относительными и абсолютными путями до сравниваемых файлов:
+
 [![asciicast](https://asciinema.org/a/d32fQOo5PSmpIf2GCMnErJSK4.svg)](https://asciinema.org/a/d32fQOo5PSmpIf2GCMnErJSK4)
 
 Gendiff может сравнивать файлы формата .json и .yml.
 Если не указан формат файла, то он по умолчанию воспринимается как .json.
+
 [![asciicast](https://asciinema.org/a/hZi2gX2k8vtK3ULU6SfrSZOjH.svg)](https://asciinema.org/a/hZi2gX2k8vtK3ULU6SfrSZOjH)
 
 Gendiff можно использовать с вложенными объектами.
+
 [![asciicast](https://asciinema.org/a/1nGvSbXvwL5IBySDRm9mFn7P3.svg)](https://asciinema.org/a/1nGvSbXvwL5IBySDRm9mFn7P3)
+
+Gendiff может выводить разницу между файлами в 2-х форматах: stylish (по умолчанию) и plain.
+```
+gendiff -f stylish
+gendiff -f plain
+```
+[![asciicast](https://asciinema.org/a/j6KJinwWlHqr8aKmAgVS6EN0n.svg)](https://asciinema.org/a/j6KJinwWlHqr8aKmAgVS6EN0n)
