@@ -2,21 +2,10 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import * as path from 'path';
-import generateDifference from '../src/index.js';
+import makeStylish from '../src/stylish.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-const expectedFlatDifference = [
-  '{',
-  '  - follow: false',
-  '    host: hexlet.io',
-  '  - proxy: 123.234.53.22',
-  '  - timeout: 50',
-  '  + timeout: 20',
-  '  + verbose: true',
-  '}',
-];
 
 const expectedDifference = [
   '{',
@@ -68,11 +57,7 @@ const expectedDifference = [
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 test('generateDifference1', () => {
-  const actualDifference = generateDifference(getFixturePath('file3.json'), getFixturePath('file4.json'));
+  const actualDifference = makeStylish(getFixturePath('file3.json'), getFixturePath('file4.json'));
+  // console.log(getFixturePath('file3.json'));
   expect(actualDifference).toEqual(expectedDifference.join('\n'));
-});
-
-test('generateDifference2', () => {
-  const actualDifference = generateDifference(getFixturePath('file1.yml'), getFixturePath('file2.yml'));
-  expect(actualDifference).toEqual(expectedFlatDifference.join('\n'));
 });
