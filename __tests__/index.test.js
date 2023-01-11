@@ -4,6 +4,7 @@ import { dirname } from 'path';
 import * as path from 'path';
 import makeStylish from '../formatters/stylish.js';
 import makePlain from '../formatters/plain.js';
+import makeJson from '../formatters/json.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -69,6 +70,37 @@ const expectedPlainDifference = [
   "Property 'group3' was added with value: [complex value]",
 ];
 
+const expectedJsonDifference = [
+  '{',
+  '"common":',
+  '{',
+  '"follow":"added",',
+  '"setting1":"unchanged",',
+  '"setting2":"removed",',
+  '"setting3":"changed",',
+  '"setting4":"added",',
+  '"setting5":"added",',
+  '"setting6":',
+  '{',
+  '"doge":',
+  '{',
+  '"wow":"changed"',
+  '},',
+  '"key":"unchanged",',
+  '"ops":"added"',
+  '}',
+  '},',
+  '"group1":',
+  '{',
+  '"baz":"changed",',
+  '"foo":"unchanged",',
+  '"nest":"changed"',
+  '},',
+  '"group2":"removed",',
+  '"group3":"added"',
+  '}',
+];
+
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 test('generateStylishDifference', () => {
@@ -81,4 +113,9 @@ test('generatePlainDifference', () => {
   const actualDifference = makePlain(getFixturePath('file3.json'), getFixturePath('file4.json'));
   // console.log(getFixturePath('file3.json'));
   expect(actualDifference).toEqual(expectedPlainDifference.join('\n'));
+});
+
+test('generateJsonDifference', () => {
+  const actualDifference = makeJson(getFixturePath('file3.json'), getFixturePath('file4.json'));
+  expect(actualDifference).toEqual(expectedJsonDifference.join(''));
 });
