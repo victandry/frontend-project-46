@@ -29,3 +29,9 @@ gendiff -f stylish
 gendiff -f plain
 ```
 [![asciicast](https://asciinema.org/a/j6KJinwWlHqr8aKmAgVS6EN0n.svg)](https://asciinema.org/a/j6KJinwWlHqr8aKmAgVS6EN0n)
+
+Gendiff может выводить разницу между файлами в формате json в одну строку.
+```
+gendiff -f json
+```
+[![asciicast](https://asciinema.org/a/Sadibip0QwnsorkkiylmhWO1S.svg)](https://asciinema.org/a/Sadibip0QwnsorkkiylmhWO1S)
