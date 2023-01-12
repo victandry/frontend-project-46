@@ -11,7 +11,6 @@ const setValueName = (value) => {
 const makePlain = (filepath1, filepath2) => {
   const parsedFile1 = parseFile(buildAbsolutePath(filepath1));
   const parsedFile2 = parseFile(buildAbsolutePath(filepath2));
-  // ...
   const differenceTreeTemplate = generateDifference(parsedFile1, parsedFile2);
   const differenceTree = _.cloneDeep(differenceTreeTemplate);
 
@@ -31,7 +30,6 @@ const makePlain = (filepath1, filepath2) => {
           actionName = 'removed';
         }
         if (_.isObject(value) && value !== 'unchanged') {
-          // console.log(`WOW it's ${key}`);
           return iter(file1[key], file2[key], tree[key], propertyName);
         }
         if (value === 'changed') {
@@ -43,9 +41,10 @@ const makePlain = (filepath1, filepath2) => {
         }
         return '';
       })
-      .filter((line) => line !== '');
+      .filter((line) => line !== '')
+      .join('\n');
 
-    return [...lines].join('\n');
+    return lines;
   };
 
   return iter(parsedFile1, parsedFile2, differenceTree, '');
