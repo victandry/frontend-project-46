@@ -2,8 +2,6 @@ import _ from 'lodash';
 import * as fs from 'fs';
 import * as path from 'path';
 import parse from './parsers.js';
-// import { listeners } from 'process';
-// import { equal } from 'assert';
 
 const buildAbsolutePath = (filepath) => path.resolve(process.cwd(), path.extname(filepath) !== '' ? filepath : `${filepath}.json`);
 
