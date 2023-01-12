@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-// import { beforeAll } from '@jest/globals';
 import { program } from 'commander';
-// import generateDifference from '../src/index.js';
 import genDiff from '../formatters/index.js';
 
 program
