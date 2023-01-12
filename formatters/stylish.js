@@ -33,20 +33,17 @@ const offset = (str, indent) => {
 const makeStylish = (filepath1, filepath2) => {
   const parsedFile1 = parseFile(buildAbsolutePath(filepath1));
   const parsedFile2 = parseFile(buildAbsolutePath(filepath2));
-  // ...
   const differenceTreeTemplate = generateDifference(parsedFile1, parsedFile2);
   const differenceTree = _.cloneDeep(differenceTreeTemplate);
 
+  const addedKeyIndent = '  + ';
+  const removedKeyIndent = '  - ';
+  const basicIndent = '    ';
+
   const iter = (file1, file2, tree, depth) => {
-    const addedKeyIndent = '  + ';
-    const removedKeyIndent = '  - ';
-    const basicIndent = '    ';
     const currentIndent = basicIndent.repeat(depth - 1);
 
-    // console.log(stringify(differenceTreeTemplate, '    '));
-
     const nodes = Object.entries(tree);
-    // console.log(nodes);
 
     const lines = nodes
       .map(([key, value]) => {
@@ -74,8 +71,6 @@ const makeStylish = (filepath1, filepath2) => {
       `${currentIndent}}`,
     ].join('\n');
   };
-
-  // console.log(iter(parsedFile1, parsedFile2, differenceTree, 1));
   return iter(parsedFile1, parsedFile2, differenceTree, 1);
 };
 
