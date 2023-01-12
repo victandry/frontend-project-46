@@ -47,22 +47,21 @@ const makeStylish = (filepath1, filepath2) => {
 
     const lines = nodes
       .map(([key, value]) => {
-        if (value === 'added') {
-          return `${currentIndent}${addedKeyIndent}${key}: ${offset(stringify(file2[key], basicIndent), currentIndent + basicIndent)}`;
+        switch (value) {
+          case 'removed':
+            return `${currentIndent}${removedKeyIndent}${key}: ${offset(stringify(file1[key], basicIndent), currentIndent + basicIndent)}`;
+          case 'added':
+            return `${currentIndent}${addedKeyIndent}${key}: ${offset(stringify(file2[key], basicIndent), currentIndent + basicIndent)}`;
+          case 'changed':
+            return [
+              `${currentIndent}${removedKeyIndent}${key}: ${offset(stringify(file1[key], basicIndent), currentIndent + basicIndent)}`,
+              `${currentIndent}${addedKeyIndent}${key}: ${offset(stringify(file2[key], basicIndent), currentIndent + basicIndent)}`,
+            ].join('\n');
+          case 'unchanged':
+            return `${currentIndent}${basicIndent}${key}: ${stringify(file1[key], basicIndent)}`;
+          default:
+            return `${currentIndent}${basicIndent}${key}: ${stringify(iter(file1[key], file2[key], tree[key], depth + 1))}`;
         }
-        if (value === 'removed') {
-          return `${currentIndent}${removedKeyIndent}${key}: ${offset(stringify(file1[key], basicIndent), currentIndent + basicIndent)}`;
-        }
-        if (_.isObject(value)) {
-          return `${currentIndent}${basicIndent}${key}: ${stringify(iter(file1[key], file2[key], tree[key], depth + 1))}`;
-        }
-        if (value === 'changed') {
-          return [
-            `${currentIndent}${removedKeyIndent}${key}: ${offset(stringify(file1[key], basicIndent), currentIndent + basicIndent)}`,
-            `${currentIndent}${addedKeyIndent}${key}: ${offset(stringify(file2[key], basicIndent), currentIndent + basicIndent)}`,
-          ].join('\n');
-        }
-        return `${currentIndent}${basicIndent}${key}: ${stringify(file1[key], basicIndent)}`;
       });
 
     return [
