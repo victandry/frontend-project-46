@@ -16,11 +16,12 @@ const makeJson = (filepath1, filepath2) => {
           return `"${key}":${iter(tree[key])}`;
         }
         return `"${key}":"${value}"`;
-      });
+      })
+      .join(',');
 
     return [
       '{',
-      [...lines].join(','),
+      lines,
       '}',
     ].join('');
   };
