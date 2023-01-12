@@ -4,7 +4,18 @@
 <a href="https://codeclimate.com/github/victandry/frontend-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/12feeff99dd32e16efa1/test_coverage" /></a>
 
 ### Описание
+
+Gendiff - утилита, позволяющая вывести разницу между двумя файлами в удобном формате.
+Например, с помощью gendiff удобно отслеживать вносящиеся в файл изменения.
+
 ### Минимальные требования
+Node.js версия 13.2.0 и выше
+
+### Инструкция по установке
+```
+make install
+```
+
 ### Инструкция по запуску
 Для того, чтобы вывести справку по использованию команды
 ```
