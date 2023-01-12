@@ -13,7 +13,6 @@ const makePlain = (filepath1, filepath2) => {
   const parsedFile2 = parseFile(buildAbsolutePath(filepath2));
   const differenceTreeTemplate = generateDifference(parsedFile1, parsedFile2);
   const differenceTree = _.cloneDeep(differenceTreeTemplate);
-
   const iter = (file1, file2, tree, defaultPropertyName) => {
     const nodes = Object.entries(tree);
     const lines = nodes
@@ -22,28 +21,30 @@ const makePlain = (filepath1, filepath2) => {
         let actionName = '';
         let changedValueName = '';
         propertyName = propertyName !== '' ? `${propertyName}.${key}` : key;
-        if (value === 'added') {
-          actionName = 'added with value: ';
-          changedValueName = setValueName(file2[key]);
+        switch (value) {
+          case 'added': {
+            actionName = 'added with value: ';
+            changedValueName = setValueName(file2[key]);
+            break;
+          }
+          case 'removed': {
+            actionName = 'removed';
+            break;
+          }
+          case 'changed': {
+            actionName = 'updated. ';
+            changedValueName = `From ${setValueName(file1[key])} to ${setValueName(file2[key])}`;
+            break;
+          }
+          case 'unchanged':
+            return '';
+          default:
+            return iter(file1[key], file2[key], tree[key], propertyName);
         }
-        if (value === 'removed') {
-          actionName = 'removed';
-        }
-        if (_.isObject(value) && value !== 'unchanged') {
-          return iter(file1[key], file2[key], tree[key], propertyName);
-        }
-        if (value === 'changed') {
-          actionName = 'updated. ';
-          changedValueName = `From ${setValueName(file1[key])} to ${setValueName(file2[key])}`;
-        }
-        if (!_.isObject(value) && value !== 'unchanged') {
-          return `Property '${propertyName}' was ${actionName}${changedValueName}`;
-        }
-        return '';
+        return `Property '${propertyName}' was ${actionName}${changedValueName}`;
       })
       .filter((line) => line !== '')
       .join('\n');
-
     return lines;
   };
 
