@@ -1,4 +1,3 @@
-// import { test, expect } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import * as path from 'path';
@@ -105,13 +104,11 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 
 test('generateStylishDifference', () => {
   const actualDifference = makeStylish(getFixturePath('file3.json'), getFixturePath('file4.json'));
-  // console.log(getFixturePath('file3.json'));
   expect(actualDifference).toEqual(expectedStylishDifference.join('\n'));
 });
 
 test('generatePlainDifference', () => {
   const actualDifference = makePlain(getFixturePath('file3.json'), getFixturePath('file4.json'));
-  // console.log(getFixturePath('file3.json'));
   expect(actualDifference).toEqual(expectedPlainDifference.join('\n'));
 });
 
