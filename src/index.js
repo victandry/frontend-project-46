@@ -38,4 +38,5 @@ const generateDifference = (file1, file2) => {
   return keyStates;
 };
 
-export { generateDifference, buildAbsolutePath, parseFile };
+export default generateDifference;
+export { buildAbsolutePath, parseFile };
