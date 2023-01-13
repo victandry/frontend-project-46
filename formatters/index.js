@@ -11,7 +11,7 @@ const genDiff = (filepath1, filepath2, formatName) => {
     case 'json':
       return makeJson(filepath1, filepath2);
     default:
-      return 'no such format';
+      return makeStylish(filepath1, filepath2);
   }
 };
 
