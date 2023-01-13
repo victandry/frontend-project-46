@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { generateDifference, parseFile, buildAbsolutePath } from '../src/index.js';
+import generateDifference, { parseFile, buildAbsolutePath } from '../src/index.js';
 
 const stringify = (data, replacer = ' ', spacesCount = 1) => {
   const iter = (obj, depth) => {
