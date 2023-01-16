@@ -12,7 +12,8 @@ const isObject = (value) => (value === Object(value) && !Array.isArray(value));
 const generateDifference = (file1, file2) => {
   const file1Keys = Object.keys(file1);
   const file2Keys = Object.keys(file2);
-  const sortedKeys = _.union(file1Keys, file2Keys).sort();
+  const unitedKeys = _.union(file1Keys, file2Keys).sort();
+  const sortedKeys = _.cloneDeep(unitedKeys).sort();
 
   const keyStates = sortedKeys
     .reduce((acc, key) => {
