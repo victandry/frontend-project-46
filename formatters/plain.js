@@ -17,31 +17,23 @@ const makePlain = (filepath1, filepath2) => {
     const nodes = Object.entries(tree);
     const lines = nodes
       .map(([key, value]) => {
-        let propertyName = defaultPropertyName;
-        let actionName = '';
-        let changedValueName = '';
-        propertyName = propertyName !== '' ? `${propertyName}.${key}` : key;
-        switch (value) {
-          case 'added': {
-            actionName = 'added with value: ';
-            changedValueName = setValueName(file2[key]);
-            break;
-          }
-          case 'removed': {
-            actionName = 'removed';
-            break;
-          }
-          case 'changed': {
-            actionName = 'updated. ';
-            changedValueName = `From ${setValueName(file1[key])} to ${setValueName(file2[key])}`;
-            break;
-          }
-          case 'unchanged':
-            return '';
-          default:
-            return iter(file1[key], file2[key], tree[key], propertyName);
+        const propertyName = defaultPropertyName;
+        const changedPropertyName = propertyName !== '' ? `${propertyName}.${key}` : key;
+        if (value === 'added') {
+          const valueName = setValueName(file2[key]);
+          return `Property '${changedPropertyName}' was added with value: ${valueName}`;
         }
-        return `Property '${propertyName}' was ${actionName}${changedValueName}`;
+        if (value === 'removed') {
+          return `Property '${changedPropertyName}' was removed`;
+        }
+        if (value === 'changed') {
+          const valueName = `From ${setValueName(file1[key])} to ${setValueName(file2[key])}`;
+          return `Property '${changedPropertyName}' was updated. ${valueName}`;
+        }
+        if (value === 'unchanged') {
+          return '';
+        }
+        return iter(file1[key], file2[key], tree[key], changedPropertyName);
       })
       .filter((line) => line !== '')
       .join('\n');
