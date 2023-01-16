@@ -9,18 +9,6 @@ const parseFile = (filepath) => parse(fs.readFileSync(filepath), path.extname(fi
 
 const isObject = (value) => (value === Object(value) && !Array.isArray(value));
 
-const bubbleSort = (array) => {
-  for (let limit = items.length - 1; limit > 0; limit -= 1) {
-    for (let i = 0; i < limit; i += 1) {
-      if (items[i] > items[i + 1]) {
-        const temporary = items[i];
-        items[i] = items[i + 1];
-        items[i + 1] = temporary;
-      }
-    }
-  }
-};
-
 const generateDifference = (file1, file2) => {
   const file1Keys = Object.keys(file1);
   const file2Keys = Object.keys(file2);
@@ -30,23 +18,24 @@ const generateDifference = (file1, file2) => {
   const keyStates = sortedKeys
     .reduce((acc, key) => {
       if (!_.has(acc, key)) {
-        if (!_.has(file1, key)) {
-          acc[key] = 'added';
-          return acc;
-        }
-        if (!_.has(file2, key)) {
-          acc[key] = 'removed';
-          return acc;
-        }
-        if (isObject(file1[key]) && isObject(file2[key])) {
-          acc[key] = generateDifference(file1[key], file2[key]);
-          return acc;
-        }
-        if (file1[key] !== file2[key]) {
-          acc[key] = 'changed';
-        } else {
-          acc[key] = 'unchanged';
-        }
+        acc[key] = '';
+      }
+      if (!_.has(file1, key)) {
+        acc[key] = 'added';
+        return acc;
+      }
+      if (!_.has(file2, key)) {
+        acc[key] = 'removed';
+        return acc;
+      }
+      if (isObject(file1[key]) && isObject(file2[key])) {
+        acc[key] = generateDifference(file1[key], file2[key]);
+        return acc;
+      }
+      if (file1[key] !== file2[key]) {
+        acc[key] = 'changed';
+      } else {
+        acc[key] = 'unchanged';
       }
       return acc;
     }, {});
