@@ -24,7 +24,7 @@ const generateDifference = (file1, file2) => {
         return { ...acc, [key]: 'removed' };
       }
       if (isObject(file1[key]) && isObject(file2[key])) {
-        return { ...acc, [key]: `${generateDifference(file1[key], file2[key])}` };
+        return { ...acc, [key]: generateDifference(file1[key], file2[key]) };
       }
       if (file1[key] !== file2[key]) {
         return { ...acc, [key]: 'changed' };
