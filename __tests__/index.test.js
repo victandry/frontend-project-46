@@ -2,9 +2,9 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import * as path from 'path';
 import * as fs from 'fs';
-import makeStylish from '../formatters/stylish.js';
-import makePlain from '../formatters/plain.js';
-import makeJson from '../formatters/json.js';
+import makeStylish from '../src/formatters/stylish.js';
+import makePlain from '../src/formatters/plain.js';
+import makeJson from '../src/formatters/json.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
