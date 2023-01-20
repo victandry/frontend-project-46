@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import generateDifference, { parseFile, buildAbsolutePath } from '../src/index.js';
+import generateDifference, { parseFile, buildAbsolutePath } from '../index.js';
 
 const makeJson = (filepath1, filepath2) => {
   const parsedFile1 = parseFile(buildAbsolutePath(filepath1));
