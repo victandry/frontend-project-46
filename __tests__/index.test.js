@@ -113,6 +113,6 @@ test('generatePlainDifference', () => {
 });
 
 test('generateJsonDifference', () => {
-  const actualDifference = makeJson(getFixturePath('file3.json'), getFixturePath('file4.json'));
+  const actualDifference = makeJson(getFixturePath('file1.json'), getFixturePath('file2.json'));
   expect(actualDifference).toEqual(expectedJsonDifference.join(''));
 });
