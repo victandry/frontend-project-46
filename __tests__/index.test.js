@@ -103,12 +103,12 @@ const expectedJsonDifference = [
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 test('generateStylishDifference', () => {
-  const actualDifference = makeStylish(getFixturePath('file3.json'), getFixturePath('file4.json'));
+  const actualDifference = makeStylish(getFixturePath('file1.json'), getFixturePath('file2.json'));
   expect(actualDifference).toEqual(expectedStylishDifference.join('\n'));
 });
 
 test('generatePlainDifference', () => {
-  const actualDifference = makePlain(getFixturePath('file3.json'), getFixturePath('file4.json'));
+  const actualDifference = makePlain(getFixturePath('file1.json'), getFixturePath('file2.json'));
   expect(actualDifference).toEqual(expectedPlainDifference.join('\n'));
 });
 
