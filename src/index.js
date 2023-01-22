@@ -12,7 +12,9 @@ const parseFile = (filepath) => parse(fs.readFileSync(filepath), path.extname(fi
 const genDiff = (filepath1, filepath2, format) => {
   const parsedFile1 = parseFile(buildAbsolutePath(filepath1));
   const parsedFile2 = parseFile(buildAbsolutePath(filepath2));
+  console.log(parsedFile1, parsedFile2);
   const differenceTree = generateDifference(parsedFile1, parsedFile2);
+
   return generateReport(parsedFile1, parsedFile2, differenceTree, format);
 };
 
