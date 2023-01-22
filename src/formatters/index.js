@@ -10,10 +10,8 @@ const genDiff = (filepath1, filepath2, formatName) => {
       return makePlain(filepath1, filepath2);
     case 'json':
       return makeJson(filepath1, filepath2);
-    case '':
-      return makeStylish(filepath1, filepath2);
     default:
-      return 'no such output format';
+      return makeStylish(filepath1, filepath2);
   }
 };
 
