@@ -10,38 +10,20 @@ import genDiff from '../src/formatters/index.js';
 // const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 describe('Generate difference (gendiff)', () => {
+  const stylishResult = fs.readFileSync('__fixtures__/stylishDifference.txt').toString();
+  const plainResult = fs.readFileSync('__fixtures__/plainDifference.txt').toString();
+  const jsonResult = fs.readFileSync('__fixtures__/jsonDifference.txt').toString();
+
   it('should compare json files', () => {
-    const actualStylishDifference = genDiff('__fixtures__/file1.json', '__fixtures__/file2', 'stylish');
-    const expectedStylishDifference = fs.readFileSync('__fixtures__/stylishDifference.txt').toString();
-    expect(actualStylishDifference).toEqual(expectedStylishDifference);
-
-    const actualPlainDifference = genDiff('__fixtures__/file1.json', '__fixtures__/file2', 'plain');
-    const expectedPlainDifference = fs.readFileSync('__fixtures__/plainDifference.txt').toString();
-    expect(actualPlainDifference).toEqual(expectedPlainDifference);
-
-    const actualJsonDifference = genDiff('__fixtures__/file1.json', '__fixtures__/file2', 'json');
-    const expectedJsonDifference = fs.readFileSync('__fixtures__/jsonDifference.txt').toString();
-    expect(actualJsonDifference).toEqual(expectedJsonDifference);
-
-    const actualUndefinedDifference = genDiff('__fixtures__/file1.json', '__fixtures__/file2', '');
-    const expectedUndefinedDifference = fs.readFileSync('__fixtures__/stylishDifference.txt').toString();
-    expect(actualUndefinedDifference).toEqual(expectedUndefinedDifference);
+    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2', 'stylish')).toEqual(stylishResult);
+    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2', 'plain')).toEqual(plainResult);
+    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2', 'json')).toEqual(jsonResult);
+    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2', '')).toEqual(stylishResult);
   });
   it('should compare yml files', () => {
-    const actualStylishDifference = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'stylish');
-    const expectedStylishDifference = fs.readFileSync('__fixtures__/stylishDifference.txt').toString();
-    expect(actualStylishDifference).toEqual(expectedStylishDifference);
-
-    const actualPlainDifference = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'plain');
-    const expectedPlainDifference = fs.readFileSync('__fixtures__/plainDifference.txt').toString();
-    expect(actualPlainDifference).toEqual(expectedPlainDifference);
-
-    const actualJsonDifference = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'json');
-    const expectedJsonDifference = fs.readFileSync('__fixtures__/jsonDifference.txt').toString();
-    expect(actualJsonDifference).toEqual(expectedJsonDifference);
-
-    const actualUndefinedDifference = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', '');
-    const expectedUndefinedDifference = fs.readFileSync('__fixtures__/stylishDifference.txt').toString();
-    expect(actualUndefinedDifference).toEqual(expectedUndefinedDifference);
+    expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'stylish')).toEqual(stylishResult);
+    expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'plain')).toEqual(plainResult);
+    expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'json')).toEqual(jsonResult);
+    expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', '')).toEqual(stylishResult);
   });
 });
