@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import generateDifference, { parseFile, buildAbsolutePath } from '../index.js';
 
 const stringify = (data, replacer = ' ', spacesCount = 1) => {
   const iter = (obj, depth) => {
@@ -30,19 +29,13 @@ const offset = (str, indent) => {
     .join('\n');
 };
 
-const makeStylish = (filepath1, filepath2) => {
-  const parsedFile1 = parseFile(buildAbsolutePath(filepath1));
-  const parsedFile2 = parseFile(buildAbsolutePath(filepath2));
-  const differenceTreeTemplate = generateDifference(parsedFile1, parsedFile2);
-  const differenceTree = _.cloneDeep(differenceTreeTemplate);
-
+const makeStylish = (parsedFile1, parsedFile2, differenceTree) => {
   const addedKeyIndent = '  + ';
   const removedKeyIndent = '  - ';
   const basicIndent = '    ';
 
   const iter = (file1, file2, tree, depth) => {
     const currentIndent = basicIndent.repeat(depth - 1);
-
     const nodes = Object.entries(tree);
 
     const lines = nodes
@@ -70,6 +63,7 @@ const makeStylish = (filepath1, filepath2) => {
       `${currentIndent}}`,
     ].join('\n');
   };
+
   return iter(parsedFile1, parsedFile2, differenceTree, 1);
 };
 

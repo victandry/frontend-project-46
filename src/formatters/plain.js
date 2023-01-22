@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import generateDifference, { parseFile, buildAbsolutePath } from '../index.js';
 
 const setValueName = (value) => {
   if (_.isObject(value)) {
@@ -8,11 +7,7 @@ const setValueName = (value) => {
   return value === String(value) ? `'${value}'` : value;
 };
 
-const makePlain = (filepath1, filepath2) => {
-  const parsedFile1 = parseFile(buildAbsolutePath(filepath1));
-  const parsedFile2 = parseFile(buildAbsolutePath(filepath2));
-  const differenceTreeTemplate = generateDifference(parsedFile1, parsedFile2);
-  const differenceTree = _.cloneDeep(differenceTreeTemplate);
+const makePlain = (parsedFile1, parsedFile2, differenceTree) => {
   const iter = (file1, file2, tree, defaultPropertyName) => {
     const nodes = Object.entries(tree);
     const lines = nodes
@@ -39,7 +34,6 @@ const makePlain = (filepath1, filepath2) => {
       .join('\n');
     return lines;
   };
-
   return iter(parsedFile1, parsedFile2, differenceTree, '');
 };
 

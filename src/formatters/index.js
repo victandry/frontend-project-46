@@ -2,17 +2,17 @@ import makePlain from './plain.js';
 import makeStylish from './stylish.js';
 import makeJson from './json.js';
 
-const genDiff = (filepath1, filepath2, formatName) => {
+const generateReport = (file1, file2, differenceTree, formatName) => {
   switch (formatName) {
     case 'stylish':
-      return makeStylish(filepath1, filepath2);
+      return makeStylish(file1, file2, differenceTree);
     case 'plain':
-      return makePlain(filepath1, filepath2);
+      return makePlain(file1, file2, differenceTree);
     case 'json':
-      return makeJson(filepath1, filepath2);
+      return makeJson(differenceTree);
     default:
-      return makeStylish(filepath1, filepath2);
+      return makeStylish(file1, file2, differenceTree);
   }
 };
 
-export default genDiff;
+export default generateReport;
