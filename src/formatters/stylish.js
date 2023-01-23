@@ -36,7 +36,9 @@ const makeStylish = (differenceTree) => {
 
   const iter = (tree, depth) => {
     const currentIndent = basicIndent.repeat(depth - 1);
-    console.log(tree);
+    if (!Array.isArray(tree)) {
+      console.log(tree);
+    }
     const nodes = tree
       .map((node) => {
         if (node.type === 'removed') {
