@@ -56,11 +56,12 @@ const makeStylish = (differenceTree) => {
         return `${currentIndent}${basicIndent}${node.key}: ${stringify(iter(node.value, depth + 1))}`;
       }) : tree;
 
-    return [
+    /* return [
       '{',
       ...nodes,
       `${currentIndent}}`,
-    ].join('\n');
+    ].join('\n'); */
+    return nodes;
   };
 
   return iter(differenceTree, 1);
