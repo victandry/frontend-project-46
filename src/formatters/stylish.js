@@ -36,9 +36,10 @@ const makeStylish = (differenceTree) => {
 
   const iter = (tree, depth) => {
     const currentIndent = basicIndent.repeat(depth - 1);
-    console.log(tree);
+    const result = Array.isArray(tree);
+    console.log(result);
     const nodes = tree
-      .map((node) => {
+      .flatMap((node) => {
         switch (node.type) {
           case 'removed':
             return `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.value, basicIndent), currentIndent + basicIndent)}`;
