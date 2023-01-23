@@ -7,7 +7,9 @@ import generateReport from './formatters/index.js';
 
 const buildAbsolutePath = (filepath) => path.resolve(process.cwd(), path.extname(filepath) !== '' ? filepath : `${filepath}.json`);
 
-const parseFile = (filepath) => parse(fs.readFileSync(filepath), path.extname(filepath));
+// const parseFile = (filepath) => parse(fs.readFileSync(filepath), path.extname(filepath));
+
+const parseFile = (filepath) => parse(fs.readFileSync(filepath));
 
 const genDiff = (filepath1, filepath2, outputFormat) => {
   const data1 = parseFile(buildAbsolutePath(filepath1));
