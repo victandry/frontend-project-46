@@ -36,6 +36,7 @@ const makeStylish = (differenceTree) => {
 
   const iter = (tree, depth) => {
     const currentIndent = basicIndent.repeat(depth - 1);
+    console.log(tree);
     const nodes = tree
       .map((node) => {
         switch (node.type) {
@@ -50,9 +51,8 @@ const makeStylish = (differenceTree) => {
             ].join('\n');
           case 'unchanged':
             return `${currentIndent}${basicIndent}${node.key}: ${stringify(node.value, basicIndent)}`;
-          default: {
+          default:
             return `${currentIndent}${basicIndent}${node.key}: ${stringify(iter(node.value, depth + 1))}`;
-          }
         }
       });
 
