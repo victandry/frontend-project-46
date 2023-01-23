@@ -29,42 +29,41 @@ const offset = (str, indent) => {
     .join('\n');
 };
 
-const makeStylish = (parsedFile1, parsedFile2, differenceTree) => {
+const makeStylish = (differenceTree) => {
   const addedKeyIndent = '  + ';
   const removedKeyIndent = '  - ';
   const basicIndent = '    ';
 
-  const iter = (file1, file2, tree, depth) => {
+  const iter = (tree, depth) => {
     const currentIndent = basicIndent.repeat(depth - 1);
-    const nodes = Object.entries(tree);
-
-    const lines = nodes
-      .map(([key, value]) => {
-        switch (value) {
+    const nodes = tree
+      .map((node) => {
+        switch (node.type) {
           case 'removed':
-            return `${currentIndent}${removedKeyIndent}${key}: ${offset(stringify(file1[key], basicIndent), currentIndent + basicIndent)}`;
+            return `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.value, basicIndent), currentIndent + basicIndent)}`;
           case 'added':
-            return `${currentIndent}${addedKeyIndent}${key}: ${offset(stringify(file2[key], basicIndent), currentIndent + basicIndent)}`;
+            return `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.value, basicIndent), currentIndent + basicIndent)}`;
           case 'changed':
             return [
-              `${currentIndent}${removedKeyIndent}${key}: ${offset(stringify(file1[key], basicIndent), currentIndent + basicIndent)}`,
-              `${currentIndent}${addedKeyIndent}${key}: ${offset(stringify(file2[key], basicIndent), currentIndent + basicIndent)}`,
+              `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.value[0], basicIndent), currentIndent + basicIndent)}`,
+              `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.value[1], basicIndent), currentIndent + basicIndent)}`,
             ].join('\n');
           case 'unchanged':
-            return `${currentIndent}${basicIndent}${key}: ${stringify(file1[key], basicIndent)}`;
-          default:
-            return `${currentIndent}${basicIndent}${key}: ${stringify(iter(file1[key], file2[key], tree[key], depth + 1))}`;
+            return `${currentIndent}${basicIndent}${node.key}: ${stringify(node.value, basicIndent)}`;
+          default: {
+            return `${currentIndent}${basicIndent}${node.key}: ${stringify(iter(node.value, depth + 1))}`;
+          }
         }
       });
 
     return [
       '{',
-      ...lines,
+      ...nodes,
       `${currentIndent}}`,
     ].join('\n');
   };
 
-  return iter(parsedFile1, parsedFile2, differenceTree, 1);
+  return iter(differenceTree, 1);
 };
 
 export default makeStylish;

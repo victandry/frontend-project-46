@@ -7,34 +7,33 @@ const setValueName = (value) => {
   return value === String(value) ? `'${value}'` : value;
 };
 
-const makePlain = (parsedFile1, parsedFile2, differenceTree) => {
-  const iter = (file1, file2, tree, defaultPropertyName) => {
-    const nodes = Object.entries(tree);
-    const lines = nodes
-      .map(([key, value]) => {
+const makePlain = (differenceTree) => {
+  const iter = (tree, defaultPropertyName) => {
+    const nodes = tree
+      .map((node) => {
         const propertyName = defaultPropertyName;
-        const changedPropertyName = propertyName !== '' ? `${propertyName}.${key}` : key;
-        if (value === 'added') {
-          const valueName = setValueName(file2[key]);
+        const changedPropertyName = propertyName !== '' ? `${propertyName}.${node.key}` : node.key;
+        if (node.type === 'added') {
+          const valueName = setValueName(node.value);
           return `Property '${changedPropertyName}' was added with value: ${valueName}`;
         }
-        if (value === 'removed') {
+        if (node.type === 'removed') {
           return `Property '${changedPropertyName}' was removed`;
         }
-        if (value === 'changed') {
-          const valueName = `From ${setValueName(file1[key])} to ${setValueName(file2[key])}`;
+        if (node.type === 'changed') {
+          const valueName = `From ${setValueName(node.value[0])} to ${setValueName(node.value[1])}`;
           return `Property '${changedPropertyName}' was updated. ${valueName}`;
         }
-        if (value === 'unchanged') {
+        if (node.type === 'unchanged') {
           return '';
         }
-        return iter(file1[key], file2[key], tree[key], changedPropertyName);
+        return iter(node.value, changedPropertyName);
       })
       .filter((line) => line !== '')
       .join('\n');
-    return lines;
+    return nodes;
   };
-  return iter(parsedFile1, parsedFile2, differenceTree, '');
+  return iter(differenceTree, '');
 };
 
 export default makePlain;

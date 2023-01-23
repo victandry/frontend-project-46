@@ -2,16 +2,16 @@ import makePlain from './plain.js';
 import makeStylish from './stylish.js';
 import makeJson from './json.js';
 
-const generateReport = (file1, file2, differenceTree, formatName) => {
-  switch (formatName) {
+const generateReport = (differenceTree, outputFormat) => {
+  switch (outputFormat) {
     case 'stylish':
-      return makeStylish(file1, file2, differenceTree);
+      return makeStylish(differenceTree);
     case 'plain':
-      return makePlain(file1, file2, differenceTree);
+      return makePlain(differenceTree);
     case 'json':
       return makeJson(differenceTree);
     default:
-      return makeStylish(file1, file2, differenceTree);
+      return makeStylish(differenceTree);
   }
 };
 
