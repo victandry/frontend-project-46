@@ -11,7 +11,7 @@ const generateDifference = (data1, data2) => {
     .reduce((acc, key) => {
       if (!_.has(data1, key)) {
         return [...acc, {
-          key: [key],
+          key,
           type: 'added',
           value: data2[key],
         },
@@ -19,7 +19,7 @@ const generateDifference = (data1, data2) => {
       }
       if (!_.has(data2, key)) {
         return [...acc, {
-          key: [key],
+          key,
           type: 'removed',
           value: data1[key],
         },
@@ -27,7 +27,7 @@ const generateDifference = (data1, data2) => {
       }
       if (isObject(data1[key]) && isObject(data2[key])) {
         return [...acc, {
-          key: [key],
+          key,
           type: 'nested',
           value: generateDifference(data1[key], data2[key]),
         },
@@ -35,14 +35,14 @@ const generateDifference = (data1, data2) => {
       }
       if (data1[key] !== data2[key]) {
         return [...acc, {
-          key: [key],
+          key,
           type: 'changed',
           value: [data1[key], data2[key]],
         },
         ];
       }
       return [...acc, {
-        key: [key],
+        key,
         type: 'unchanged',
         value: data1[key],
       },
