@@ -1,4 +1,4 @@
-const makeJson = (differenceTree) => {
+const makeJson = (diffTree) => {
   const iter = (tree) => {
     const reducedTree = tree
       .reduce((acc, node) => {
@@ -9,7 +9,7 @@ const makeJson = (differenceTree) => {
       }, {});
     return reducedTree;
   };
-  return JSON.stringify(iter(differenceTree));
+  return JSON.stringify(iter(diffTree));
 };
 
 export default makeJson;
