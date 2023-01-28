@@ -1,10 +1,6 @@
-import fs from 'fs';
-import path from 'path';
 import yaml from 'js-yaml';
 
-const parse = (filepath) => {
-  const data = fs.readFileSync(filepath);
-  const fileFormat = path.extname(filepath);
+const parse = (data, fileFormat) => {
   if (fileFormat === '.json') {
     return JSON.parse(data);
   }
