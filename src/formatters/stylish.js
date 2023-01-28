@@ -29,7 +29,7 @@ const offset = (str, indent) => {
     .join('\n');
 };
 
-const makeStylish = (differenceTree) => {
+const makeStylish = (diffTree) => {
   const addedKeyIndent = '  + ';
   const removedKeyIndent = '  - ';
   const basicIndent = '    ';
@@ -63,7 +63,7 @@ const makeStylish = (differenceTree) => {
     ].join('\n');
   };
 
-  return iter(differenceTree, 1);
+  return iter(diffTree, 1);
 };
 
 export default makeStylish;
