@@ -1,8 +1,10 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import yaml from 'js-yaml';
 
-// Выбирается функция-парсер в зависимости от файла
-
-const parse = (data, fileFormat) => {
+const parse = (filepath) => {
+  const data = fs.readFileSync(filepath);
+  const fileFormat = path.extname(filepath);
   if (fileFormat === '.json') {
     return JSON.parse(data);
   }
