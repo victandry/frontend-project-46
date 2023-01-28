@@ -1,6 +1,6 @@
-import * as fs from 'fs';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { dirname, path } from 'path';
+import path, { dirname } from 'path';
 import genDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
