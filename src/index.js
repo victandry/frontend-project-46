@@ -11,8 +11,8 @@ const readData = (filepath) => parse(fs.readFileSync(filepath), path.extname(fil
 const genDiff = (filepath1, filepath2, outputFormat = 'stylish') => {
   const data1 = readData(buildAbsolutePath(filepath1));
   const data2 = readData(buildAbsolutePath(filepath2));
-  const differenceTree = buildDiff(data1, data2);
-  return format(differenceTree, outputFormat);
+  const diffTree = buildDiff(data1, data2);
+  return format(diffTree, outputFormat);
 };
 
 export default genDiff;
