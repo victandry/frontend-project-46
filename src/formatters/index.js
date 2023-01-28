@@ -2,7 +2,7 @@ import makePlain from './plain.js';
 import makeStylish from './stylish.js';
 import makeJson from './json.js';
 
-const generateReport = (differenceTree, outputFormat) => {
+const format = (differenceTree, outputFormat) => {
   switch (outputFormat) {
     case 'stylish':
       return makeStylish(differenceTree);
@@ -15,4 +15,4 @@ const generateReport = (differenceTree, outputFormat) => {
   }
 };
 
-export default generateReport;
+export default format;
