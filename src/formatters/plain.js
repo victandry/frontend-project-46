@@ -7,7 +7,7 @@ const setValueName = (value) => {
   return value === String(value) ? `'${value}'` : value;
 };
 
-const makePlain = (differenceTree) => {
+const makePlain = (diffTree) => {
   const iter = (tree, defaultPropertyName) => {
     const nodes = tree
       .map((node) => {
@@ -33,7 +33,7 @@ const makePlain = (differenceTree) => {
       .join('\n');
     return nodes;
   };
-  return iter(differenceTree, '');
+  return iter(diffTree, '');
 };
 
 export default makePlain;
