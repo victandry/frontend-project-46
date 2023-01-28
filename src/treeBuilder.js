@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const isObject = (value) => (value === Object(value) && !Array.isArray(value));
 
-const generateDifference = (data1, data2) => {
+const buildDiff = (data1, data2) => {
   const data1Keys = Object.keys(data1);
   const data2Keys = Object.keys(data2);
   const sortedKeys = _.sortBy(_.union(data1Keys, data2Keys));
@@ -29,7 +29,7 @@ const generateDifference = (data1, data2) => {
         return [...acc, {
           key,
           type: 'nested',
-          value: generateDifference(data1[key], data2[key]),
+          value: buildDiff(data1[key], data2[key]),
         },
         ];
       }
@@ -51,4 +51,4 @@ const generateDifference = (data1, data2) => {
   return keyStates;
 };
 
-export default generateDifference;
+export default buildDiff;
