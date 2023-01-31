@@ -53,7 +53,7 @@ const makeStylish = (diffTree) => {
         if (node.type === 'unchanged') {
           return `${currentIndent}${basicIndent}${node.key}: ${stringify(node.value, basicIndent)}`;
         }
-        return `${currentIndent}${basicIndent}${node.key}: ${stringify(iter(node.value, depth + 1))}`;
+        return `${currentIndent}${basicIndent}${node.key}: ${stringify(iter(node.children, depth + 1))}`;
       });
 
     return [

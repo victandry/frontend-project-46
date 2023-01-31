@@ -5,7 +5,7 @@ const makeJson = (diffTree) => {
         if (node.type === 'added' || node.type === 'removed' || node.type === 'unchanged' || node.type === 'changed') {
           return { ...acc, [node.key]: node.type };
         }
-        return { ...acc, [node.key]: iter(node.value) };
+        return { ...acc, [node.key]: iter(node.children) };
       }, {});
     return reducedTree;
   };

@@ -27,7 +27,7 @@ const makePlain = (diffTree) => {
         if (node.type === 'unchanged') {
           return '';
         }
-        return iter(node.value, changedPropertyName);
+        return iter(node.children, changedPropertyName);
       })
       .filter((line) => line !== '')
       .join('\n');
