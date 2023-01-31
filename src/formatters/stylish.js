@@ -38,24 +38,27 @@ const makeStylish = (diffTree) => {
     const currentIndent = basicIndent.repeat(depth - 1);
     const nodes = tree
       .map((node) => {
-        if (node.type === 'removed') {
-          return `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.value, basicIndent), currentIndent + basicIndent)}`;
+        switch (node.type) {
+          case 'removed': {
+            return `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.value, basicIndent), currentIndent + basicIndent)}`;
+          }
+          case 'added': {
+            return `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.value, basicIndent), currentIndent + basicIndent)}`;
+          }
+          case 'changed': {
+            return [
+              `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.initValue, basicIndent), currentIndent + basicIndent)}`,
+              `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.finalValue, basicIndent), currentIndent + basicIndent)}`,
+            ].join('\n');
+          }
+          case 'unchanged': {
+            return `${currentIndent}${basicIndent}${node.key}: ${stringify(node.value, basicIndent)}`;
+          }
+          default: {
+            return `${currentIndent}${basicIndent}${node.key}: ${stringify(iter(node.children, depth + 1))}`;
+          }
         }
-        if (node.type === 'added') {
-          return `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.value, basicIndent), currentIndent + basicIndent)}`;
-        }
-        if (node.type === 'changed') {
-          return [
-            `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.initValue, basicIndent), currentIndent + basicIndent)}`,
-            `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.finalValue, basicIndent), currentIndent + basicIndent)}`,
-          ].join('\n');
-        }
-        if (node.type === 'unchanged') {
-          return `${currentIndent}${basicIndent}${node.key}: ${stringify(node.value, basicIndent)}`;
-        }
-        return `${currentIndent}${basicIndent}${node.key}: ${stringify(iter(node.children, depth + 1))}`;
       });
-
     return [
       '{',
       ...nodes,
