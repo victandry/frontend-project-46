@@ -46,8 +46,8 @@ const makeStylish = (diffTree) => {
         }
         if (node.type === 'changed') {
           return [
-            `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.value[0], basicIndent), currentIndent + basicIndent)}`,
-            `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.value[1], basicIndent), currentIndent + basicIndent)}`,
+            `${currentIndent}${removedKeyIndent}${node.key}: ${offset(stringify(node.initValue, basicIndent), currentIndent + basicIndent)}`,
+            `${currentIndent}${addedKeyIndent}${node.key}: ${offset(stringify(node.finalValue, basicIndent), currentIndent + basicIndent)}`,
           ].join('\n');
         }
         if (node.type === 'unchanged') {
