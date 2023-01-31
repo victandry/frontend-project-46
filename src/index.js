@@ -6,7 +6,7 @@ import format from './formatters/index.js';
 
 const buildAbsolutePath = (filepath) => path.resolve(process.cwd(), filepath);
 
-const readData = (filepath) => parse(fs.readFileSync(filepath), path.extname(filepath));
+const readData = (filepath) => parse(fs.readFileSync(filepath), path.extname(filepath).replace('.', ''));
 
 const genDiff = (filepath1, filepath2, outputFormat = 'stylish') => {
   const data1 = readData(buildAbsolutePath(filepath1));
