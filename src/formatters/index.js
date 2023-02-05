@@ -1,6 +1,5 @@
 import formatPlain from './plain.js';
 import formatStylish from './stylish.js';
-import formatJson from './json.js';
 
 const format = (diffTree, outputFormat) => {
   switch (outputFormat) {
@@ -9,7 +8,7 @@ const format = (diffTree, outputFormat) => {
     case 'plain':
       return formatPlain(diffTree);
     case 'json':
-      return formatJson(diffTree);
+      return JSON.stringify(diffTree);
     default:
       throw new Error(`Wrong output format: ${outputFormat}. Choose 'stylish', 'plain' or 'json'.`);
   }
