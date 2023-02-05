@@ -1,4 +1,4 @@
-const makeJson = (diffTree) => {
+const formatJson = (diffTree) => {
   const iter = (tree) => {
     const reducedTree = tree
       .reduce((acc, node) => {
@@ -12,4 +12,4 @@ const makeJson = (diffTree) => {
   return JSON.stringify(iter(diffTree));
 };
 
-export default makeJson;
+export default formatJson;

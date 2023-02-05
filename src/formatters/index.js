@@ -1,15 +1,15 @@
-import makePlain from './plain.js';
-import makeStylish from './stylish.js';
-import makeJson from './json.js';
+import formatPlain from './plain.js';
+import formatStylish from './stylish.js';
+import formatJson from './json.js';
 
 const format = (diffTree, outputFormat) => {
   switch (outputFormat) {
     case 'stylish':
-      return makeStylish(diffTree);
+      return formatStylish(diffTree);
     case 'plain':
-      return makePlain(diffTree);
+      return formatPlain(diffTree);
     case 'json':
-      return makeJson(diffTree);
+      return formatJson(diffTree);
     default:
       throw new Error(`Wrong output format: ${outputFormat}. Choose 'stylish', 'plain' or 'json'.`);
   }
