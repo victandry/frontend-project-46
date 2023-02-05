@@ -32,8 +32,8 @@ const buildDiff = (data1, data2) => {
         return {
           key,
           type: 'changed',
-          initValue: data1[key],
-          finalValue: data2[key],
+          value1: data1[key],
+          value2: data2[key],
         };
       }
       return {
