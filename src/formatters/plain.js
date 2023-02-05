@@ -21,7 +21,7 @@ const makePlain = (diffTree) => {
           return `Property '${changedPropertyName}' was removed`;
         }
         case 'changed': {
-          const valueName = `From ${setValueName(node.initValue)} to ${setValueName(node.finalValue)}`;
+          const valueName = `From ${setValueName(node.value1)} to ${setValueName(node.value2)}`;
           return `Property '${changedPropertyName}' was updated. ${valueName}`;
         }
         case 'unchanged': {
