@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
 const buildDiff = (data1, data2) => {
-  const data1Keys = Object.keys(data1);
-  const data2Keys = Object.keys(data2);
-  const sortedKeys = _.sortBy(_.union(data1Keys, data2Keys));
+  const keys1 = Object.keys(data1);
+  const keys2 = Object.keys(data2);
+  const sortedKeys = _.sortBy(_.union(keys1, keys2));
 
   return sortedKeys
     .map((key) => {
