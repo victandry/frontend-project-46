@@ -11,7 +11,7 @@ const format = (diffTree, outputFormat) => {
     case 'json':
       return makeJson(diffTree);
     default:
-      return makeStylish(diffTree);
+      throw new Error(`Wrong output format: ${outputFormat}. Choose 'stylish', 'plain' or 'json'.`);
   }
 };
 
