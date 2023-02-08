@@ -4,8 +4,7 @@ const indent = (depth, isFull) => (isFull ? '    '.repeat(depth) : '    '.repeat
 
 const stringify = (data, depth) => {
   const iter = (obj, nestLevel) => {
-    const entries = Object.entries(obj);
-    const mappedKeys = entries.flatMap(([key, value]) => {
+    const mappedKeys = Object.entries(obj).flatMap(([key, value]) => {
       if (_.isObject(value)) {
         return `${indent(nestLevel + 1, true)}${key}: ${iter(value, nestLevel + 1)}`;
       }
