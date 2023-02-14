@@ -1,10 +1,13 @@
 import _ from 'lodash';
 
-const setValueName = (value) => {
-  if (_.isObject(value)) {
+const stringify = (data) => {
+  if (_.isObject(data)) {
     return '[complex value]';
   }
-  return value === String(value) ? `'${value}'` : value;
+  if (typeof data === 'string') {
+    return `'${data}'`;
+  }
+  return String(data);
 };
 
 const formatPlain = (diffTree) => {
@@ -14,14 +17,14 @@ const formatPlain = (diffTree) => {
       const changedPropertyName = propertyName !== '' ? `${propertyName}.${node.key}` : node.key;
       switch (node.type) {
         case 'added': {
-          const valueName = setValueName(node.value);
+          const valueName = stringify(node.value);
           return `Property '${changedPropertyName}' was added with value: ${valueName}`;
         }
         case 'removed': {
           return `Property '${changedPropertyName}' was removed`;
         }
         case 'changed': {
-          const valueName = `From ${setValueName(node.value1)} to ${setValueName(node.value2)}`;
+          const valueName = `From ${stringify(node.value1)} to ${stringify(node.value2)}`;
           return `Property '${changedPropertyName}' was updated. ${valueName}`;
         }
         case 'unchanged': {
