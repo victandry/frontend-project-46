@@ -10,34 +10,33 @@ const stringify = (data) => {
   return String(data);
 };
 
-const formatPlain = (diffTree) => {
-  const iter = (tree, defaultPropertyName) => tree
-    .map((node) => {
-      const propertyName = defaultPropertyName;
-      const changedPropertyName = propertyName !== '' ? `${propertyName}.${node.key}` : node.key;
-      switch (node.type) {
-        case 'added': {
-          const valueName = stringify(node.value);
-          return `Property '${changedPropertyName}' was added with value: ${valueName}`;
-        }
-        case 'removed': {
-          return `Property '${changedPropertyName}' was removed`;
-        }
-        case 'changed': {
-          const valueName = `From ${stringify(node.value1)} to ${stringify(node.value2)}`;
-          return `Property '${changedPropertyName}' was updated. ${valueName}`;
-        }
-        case 'unchanged': {
-          return '';
-        }
-        default: {
-          return iter(node.children, changedPropertyName);
-        }
-      }
-    })
-    .filter((line) => line !== '')
-    .join('\n');
-  return iter(diffTree, '');
-};
+const getPropertyName = (propertyName, key) => (propertyName !== '' ? `${propertyName}.${key}` : key);
+
+const iter = (tree, propertyName) => tree.map((node) => {
+  switch (node.type) {
+    case 'added': {
+      return `Property '${getPropertyName(propertyName, node.key)}' was added with value: ${stringify(node.value)}`;
+    }
+    case 'removed': {
+      return `Property '${getPropertyName(propertyName, node.key)}' was removed`;
+    }
+    case 'changed': {
+      return `Property '${getPropertyName(propertyName, node.key)}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+    }
+    case 'unchanged': {
+      return '';
+    }
+    case 'nested': {
+      return iter(node.children, getPropertyName(propertyName, node.key));
+    }
+    default: {
+      throw new Error(`Wrong node type: ${node.type}.`);
+    }
+  }
+})
+  .filter((line) => line !== '')
+  .join('\n');
+
+const formatPlain = (diffTree) => iter(diffTree, '');
 
 export default formatPlain;
