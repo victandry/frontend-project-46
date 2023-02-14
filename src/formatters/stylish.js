@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const indent = (depth, isFull) => (isFull ? '    '.repeat(depth) : '    '.repeat(depth).slice(2));
+const indent = (depth, isFull) => (isFull ? ' '.repeat(depth * 4) : ' '.repeat(depth * 4 - 2));
 
 const stringify = (data, depth) => {
   const iter = (obj, nestLevel) => {
