@@ -3,16 +3,11 @@ import _ from 'lodash';
 const indent = (depth, isFull) => (isFull ? ' '.repeat(depth * 4) : ' '.repeat(depth * 4 - 2));
 
 const stringify = (data, depth) => {
-  const iter = (obj, nestLevel) => {
-    const mappedKeys = Object.entries(obj).flatMap(([key, value]) => {
-      if (_.isObject(value)) {
-        return `${indent(nestLevel + 1, true)}${key}: ${iter(value, nestLevel + 1)}`;
-      }
-      return `${indent(nestLevel + 1, true)}${key}: ${value}`;
-    });
-    return `{\n${mappedKeys.join('\n')}\n${indent(nestLevel, true)}}`;
-  };
-  return _.isObject(data) ? iter(data, depth) : data;
+  if (_.isObject(data)) {
+    const mappedKeys = Object.entries(data).flatMap(([key, value]) => `${indent(depth + 1, true)}${key}: ${stringify(value, depth + 1)}`);
+    return `{\n${mappedKeys.join('\n')}\n${indent(depth, true)}}`;
+  }
+  return String(data);
 };
 
 const formatStylish = (diffTree) => {
