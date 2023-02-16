@@ -3,11 +3,11 @@ import _ from 'lodash';
 const indent = (depth, isFull) => (isFull ? ' '.repeat(depth * 4) : ' '.repeat(depth * 4 - 2));
 
 const stringify = (data, depth) => {
-  if (_.isObject(data)) {
-    const mappedKeys = Object.entries(data).flatMap(([key, value]) => `${indent(depth + 1, true)}${key}: ${stringify(value, depth + 1)}`);
-    return `{\n${mappedKeys.join('\n')}\n${indent(depth, true)}}`;
+  if (!_.isObject(data)) {
+    return String(data);
   }
-  return String(data);
+  const mappedKeys = Object.entries(data).flatMap(([key, value]) => `${indent(depth + 1, true)}${key}: ${stringify(value, depth + 1)}`);
+  return `{\n${mappedKeys.join('\n')}\n${indent(depth, true)}}`;
 };
 
 const iter = (tree, depth) => {
