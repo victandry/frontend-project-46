@@ -11,7 +11,7 @@ const stringify = (data, depth) => {
 };
 
 const iter = (tree, depth) => {
-  const nodes = tree.map((node) => {
+  const nodes = tree.flatMap((node) => {
     switch (node.type) {
       case 'removed': {
         return `${indent(depth, false)}- ${node.key}: ${stringify(node.value, depth)}`;
@@ -29,15 +29,23 @@ const iter = (tree, depth) => {
         return `${indent(depth, true)}${node.key}: ${stringify(node.value, depth)}`;
       }
       case 'nested': {
-        return `${indent(depth, true)}${node.key}: ${stringify(iter(node.children, depth + 1), depth)}`;
+        return [
+          `${indent(depth, true)}${node.key}: {`,
+          `${(iter(node.children, depth + 1))}`,
+          `${indent(depth, true)}}`,
+        ];
       }
       default:
         throw new Error(`Wrong node type: ${node.type}.`);
     }
   });
-  return `{\n${nodes.join('\n')}\n${indent(depth - 1, true)}}`;
+  return [...nodes];
 };
 
-const formatStylish = (diffTree) => iter(diffTree, 1);
+const formatStylish = (diffTree) => {
+  const output = iter(diffTree, 1)
+    .map((line) => `${line.split(',').join('\n')}`);
+  return `{\n${output.join('\n')}\n}`;
+};
 
 export default formatStylish;
